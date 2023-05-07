@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TestMotiv.MvcApplication" Language="C#" %>

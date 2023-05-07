@@ -1,0 +1,40 @@
+﻿@using TestMotiv.DTO;
+@using TestMotiv.Models;
+@using TestMotiv.ViewModels;
+@model PaginationViewModel
+
+<ul class="nav nav-pills">
+    @if (Model.HasPreviousPage)
+    {
+        <li role="presentation" class="active">
+            <a href="@Model.UrlParamsAsUrl"><<</a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="@Model.UrlParamsAsUrl"><</a>
+        </li>    
+    }
+    
+    @for (int i = Model.CurrentPage > 4 ? Model.CurrentPage - 4 : 1; i < (Model.CurrentPage < Model.TotalPages - 4 ? Model.CurrentPage + 4 : Model.TotalPages); i++)
+    {
+        if (i == Model.CurrentPage)
+        {
+            <li role="presentation" class="active">@i</li>
+        }
+        else
+        {
+            <li role="presentation">
+                <a href="@Model.UrlParamsAsUrl">@i</a>
+            </li>
+        }
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <li role="presentation">
+            <a href="@Model.UrlParamsAsUrl">></a>
+        </li>
+        <li role="presentation">
+            <a href="@Model.UrlParamsAsUrl">>></a>
+        </li>  
+    } 
+</ul>
