@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using AutoMapper;
 using TestMotiv.Abstractions;
+using TestMotiv.Contexts;
 using TestMotiv.Services;
 using Unity;
 using Unity.Injection;
@@ -24,12 +26,8 @@ namespace TestMotiv
 
             container.RegisterSingleton<Mapper>(new InjectionConstructor(new MapperConfiguration(conf => conf.AddMaps(typeof(MvcApplication)))));
             container.RegisterSingleton<IPageDataService, PageDataService>();
+            container.RegisterType<UserRequestContext>(new InjectionConstructor(WebConfigurationManager.ConnectionStrings["Default"].ConnectionString));
 
-            //// A
-            // foreach (var t in GetTypesByNamespace("Helpers.Filters"))
-            //     container.RegisterSingleton(typeof(IFilterHelper<>), t);
-
-            //// B
             foreach (var t in GetTypesByGenericInterface(typeof(IFilterHelper<,>)))
             {
                 var interfaces = t.GetInterfaces();
@@ -42,23 +40,7 @@ namespace TestMotiv
         }
 
         /// <summary>
-        /// A
-        /// </summary>
-        /// <param name="namespaceName"></param>
-        /// <returns></returns>
-        private static IEnumerable<Type> GetTypesByNamespace(string namespaceName)
-        {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.FullName.StartsWith("TestMotiv", StringComparison.Ordinal))
-                .SelectMany(a => a.GetTypes())
-                .Where(t => t.IsPublic &&
-                            t.Namespace.EndsWith($".{namespaceName}", StringComparison.Ordinal) &&
-                            t.GetInterfaces()
-                                .Any());
-        }
-
-        /// <summary>
-        /// B
+        /// Получаем типы реализующие заданный Generic интерфейс
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>

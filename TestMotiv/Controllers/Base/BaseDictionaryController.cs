@@ -12,12 +12,11 @@ namespace TestMotiv.Controllers.Base
         protected readonly UserRequestContext UserRequestContext;
         protected readonly Mapper Mapper;
         
-        public BaseDictionaryController(Mapper mapper)
+        public BaseDictionaryController(Mapper mapper, UserRequestContext userRequestContext)
         {
             Mapper = mapper;
-            UserRequestContext = new UserRequestContext();
+            UserRequestContext = userRequestContext;
         }
-
 
         /// <summary>
         /// Получение объекта по id

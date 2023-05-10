@@ -6,7 +6,7 @@ namespace TestMotiv.Models
     /// Модель для пагинации
     /// </summary>
     /// <typeparam name="TDto">Тип отображаемых элементов</typeparam>
-    public class PageView<TDto, TFilter>
+    public class PageData<TDto, TFilter>
     {
         /// <summary>
         /// Элементы текущей страницы

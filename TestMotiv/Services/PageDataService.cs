@@ -18,7 +18,9 @@ namespace TestMotiv.Services
         public (IEnumerable<TRes> Items, int Total) ToPageView<TSource, TRes>(IQueryable<TSource> query, PageRequest pageRequest) where TSource : IHasId
         {
             var total = query.Count();
-            var res = query.Skip((pageRequest.CurrentPage - 1) * pageRequest.PageSize)
+            var res = query
+                .OrderBy(i => "Id")
+                .Skip((pageRequest.CurrentPage - 1) * pageRequest.PageSize)
                 .Take(pageRequest.PageSize)
                 .ToList();
 

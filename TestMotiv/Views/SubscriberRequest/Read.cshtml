@@ -1,7 +1,8 @@
 ﻿@using TestMotiv.DTO;
 @using TestMotiv.Models;
 @using TestMotiv.ViewModels;
-@model PageView<SubscriberRequestDto, SubscriberRequestFilterDto>
+@using System.Data.Common
+@model PageData<SubscriberRequestDto, SubscriberRequestFilterDto>
 
 <h2>Обращения абонентов</h2>
 <div class="row mt-3">
@@ -9,7 +10,12 @@
         <form action="">
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.CountryId)
-                <input type="text" class="form-control">
+                @* @Html.DropDownListFor(i => i.Filter.CountryId,  new SelectList(new List<(int Id, string Name)> *@
+                @*                       { *@
+                @*                           (1, "Раз"), *@
+                @*                           (2, "Два"), *@
+                @*                           (3, "Три"), *@
+                @*                       }, "Id", "Name")) *@
             </div>
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.RegionId)
@@ -35,23 +41,21 @@
             <div class="btn btn-success btn-block">Добавить</div>
         </div>
     </div>
-
-    @Html.Partial("Components/Pagination", new PaginationViewModel
-    {
-        Total = Model.Total,
-        CurrentPage = Model?.Filter?.PageRequest?.CurrentPage ?? 0,
-        PageSize = Model?.Filter?.PageRequest?.PageSize ?? 0,
-        UrlParams = new Dictionary<string, string>
-        {
-            {nameof(Model.Filter.Phone), Model?.Filter?.Phone ?? string.Empty},
-            {nameof(Model.Filter.CountryId), Model?.Filter?.CountryId.ToString()},
-            {nameof(Model.Filter.CityId), Model?.Filter?.CityId.ToString()},
-            {nameof(Model.Filter.RegionId), Model?.Filter?.RegionId.ToString()},
-            {nameof(Model.Filter.RequestReasonId), Model?.Filter?.RequestReasonId.ToString()},
-        }
-    })
-
     <div class="col-sm-9">
+        @Html.Partial("Components/Pagination", new PaginationViewModel
+            {
+                Total = Model.Total,
+                CurrentPage = Model?.Filter?.PageRequest?.CurrentPage ?? 0,
+                PageSize = Model?.Filter?.PageRequest?.PageSize ?? 0,
+                UrlParams = new Dictionary<string, string>
+                {
+                    {nameof(Model.Filter.Phone), Model?.Filter?.Phone ?? string.Empty},
+                    {nameof(Model.Filter.CountryId), Model?.Filter?.CountryId.ToString()},
+                    {nameof(Model.Filter.CityId), Model?.Filter?.CityId.ToString()},
+                    {nameof(Model.Filter.RegionId), Model?.Filter?.RegionId.ToString()},
+                    {nameof(Model.Filter.RequestReasonId), Model?.Filter?.RequestReasonId.ToString()},
+                }
+            })
         <table class="table">
             <thead>
             <tr>

@@ -16,10 +16,10 @@ namespace TestMotiv.Helpers.Filters
                 query = query.Where(i => i.CityId == filter.CityId);
             
             if (filter.CountryId > 0)
-                query = query.Where(i => i.CountryId == filter.CountryId);
+                query = query.Where(i => i.City.Region.CountryId == filter.CountryId);
             
             if (filter.RegionId > 0)
-                query = query.Where(i => i.RegionId == filter.RegionId);
+                query = query.Where(i => i.City.RegionId == filter.RegionId);
             
             if (filter.RequestReasonId > 0)
                 query = query.Where(i => i.RequestReasonId == filter.RequestReasonId);

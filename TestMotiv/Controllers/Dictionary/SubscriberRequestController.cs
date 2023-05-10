@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using TestMotiv.Abstractions;
+using TestMotiv.Contexts;
 using TestMotiv.Controllers.Base;
 using TestMotiv.DTO;
 using TestMotiv.Models;
@@ -15,8 +16,9 @@ namespace TestMotiv.Controllers.Dictionary
         private readonly IPageDataService _pageDataService;
 
         public SubscriberRequestController(Mapper mapper, 
-            IPageDataService pageDataService,
-            IFilterHelper<SubscriberRequest, SubscriberRequestFilterDto> filterHelper) : base(mapper)
+                                           IPageDataService pageDataService,
+                                           IFilterHelper<SubscriberRequest, SubscriberRequestFilterDto> filterHelper,
+                                           UserRequestContext userRequestContext) : base(mapper, userRequestContext)
         {
             _filterHelper = filterHelper;
             _pageDataService = pageDataService;
@@ -50,14 +52,14 @@ namespace TestMotiv.Controllers.Dictionary
             var filtered = _filterHelper.Filter(query, filter);
             var result = _pageDataService.ToPageView<SubscriberRequest, SubscriberRequestDto>(filtered, pageRequest);
 
-            var pageData = new PageView<SubscriberRequestDto, SubscriberRequestFilterDto>
+            var pageData = new PageData<SubscriberRequestDto, SubscriberRequestFilterDto>
             {
                 Filter = filter,
                 Items = result.Items.ToList(),
                 Total = result.Total
             };
 
-            return Json(pageData);
+            return View(pageData);
         }
     }
 }
