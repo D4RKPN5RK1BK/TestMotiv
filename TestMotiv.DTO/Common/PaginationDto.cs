@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace TestMotiv.ViewModels
+namespace TestMotiv.DTO
 {
-    public class PaginationViewModel
+    public class PaginationDto
     {
         public int PageSize { get; set; }
         

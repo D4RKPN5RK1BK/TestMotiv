@@ -1,6 +1,5 @@
 ﻿@using TestMotiv.DTO;
 @using TestMotiv.Models;
-@using TestMotiv.ViewModels;
 @using System.Data.Common
 @model PageData<SubscriberRequestDto, SubscriberRequestFilterDto>
 
@@ -42,7 +41,7 @@
         </div>
     </div>
     <div class="col-sm-9">
-        @Html.Partial("Components/Pagination", new PaginationViewModel
+        @Html.Partial("Components/Pagination", new PaginationDto
             {
                 Total = Model.Total,
                 CurrentPage = Model?.Filter?.PageRequest?.CurrentPage ?? 0,
