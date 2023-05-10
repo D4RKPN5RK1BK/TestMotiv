@@ -1,9 +1,9 @@
-﻿namespace TestMotiv.DTO
+namespace TestMotiv.DTO
 {
-    public class PageRequestDto
+    public class PageRequestDto<TFilter> where TFilter : BaseFilterDto
     {
-        public int CurrentPage { get; set; }
+        public TFilter Filter { get; set; }
         
-        public int PageSize { get; set; }
+        public PageDataDto PageData { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using TestMotiv.Abstractions;
+using TestMotiv.DTO;
 using TestMotiv.Models;
 
 namespace TestMotiv.Services
@@ -15,13 +16,13 @@ namespace TestMotiv.Services
             _mapper = mapper;
         }
 
-        public (IEnumerable<TRes> Items, int Total) ToPageView<TSource, TRes>(IQueryable<TSource> query, PageRequest pageRequest) where TSource : IHasId
+        public (IEnumerable<TRes> Items, int Total) ToPageView<TSource, TRes>(IQueryable<TSource> query, PageDataDto pageData) where TSource : IHasId
         {
             var total = query.Count();
             var res = query
                 .OrderBy(i => "Id")
-                .Skip((pageRequest.CurrentPage - 1) * pageRequest.PageSize)
-                .Take(pageRequest.PageSize)
+                .Skip((pageData.CurrentPage - 1) * pageData.PageSize)
+                .Take(pageData.PageSize)
                 .ToList();
 
             return (_mapper.Map<List<TRes>>(res), total);

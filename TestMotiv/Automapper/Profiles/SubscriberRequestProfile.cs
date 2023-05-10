@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TestMotiv.DTO;
+using TestMotiv.Models;
 using TestMotiv.Models.Domain;
 
 namespace TestMotiv.Automapper.Profiles

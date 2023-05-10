@@ -2,6 +2,6 @@
 {
     public class BaseFilterDto
     {
-        public PageRequestDto PageRequest { get; set; }
+        public PageDataDto PageData { get; set; }
     }
 }

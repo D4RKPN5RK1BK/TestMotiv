@@ -4,18 +4,83 @@ using System.Web.Mvc;
 using AutoMapper;
 using TestMotiv.Abstractions;
 using TestMotiv.Contexts;
+using TestMotiv.DTO;
 
 namespace TestMotiv.Controllers.Base
 {
-    public class BaseDictionaryController<TModel, TDto> : Controller where TModel : class, IHasId
+    /// <summary>
+    /// Базовый контроллер для выполнения синхронных CRUD запросов
+    /// </summary>
+    /// <typeparam name="TModel">Модель привязанная к базе данных</typeparam>
+    /// <typeparam name="TDto">Dto модели</typeparam>
+    /// <typeparam name="TFilter">Фильтр для получения отчета</typeparam>
+    public abstract class BaseDictionaryController<TModel, TDto, TFilter> : Controller 
+        where TModel : class, IHasId 
+        where TFilter : BaseFilterDto
+        where TDto : new()
     {
         protected readonly UserRequestContext UserRequestContext;
         protected readonly Mapper Mapper;
-        
-        public BaseDictionaryController(Mapper mapper, UserRequestContext userRequestContext)
+        private readonly IFilterHelper<TModel, TFilter> _filterHelper;
+        private readonly IPageDataService _pageDataService;
+
+        public BaseDictionaryController(Mapper mapper, 
+                                        UserRequestContext userRequestContext, 
+                                        IFilterHelper<TModel, TFilter> filterHelper, 
+                                        IPageDataService pageDataService)
         {
             Mapper = mapper;
             UserRequestContext = userRequestContext;
+            _filterHelper = filterHelper;
+            _pageDataService = pageDataService;
+        }
+
+        /// <summary>
+        /// Получение представления для создания новой сущности
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual ActionResult Create()
+        {
+            var dto = new TDto();
+            return View(dto);
+        }
+
+        /// <summary>
+        ///  Получение представления для редактирования существующей сущности
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual ActionResult Update(int id = 0)
+        {
+            if (id <= 0) return new HttpNotFoundResult();
+
+            var model = UserRequestContext.Set<TModel>().Find(id);
+            var dto = Mapper.Map<TDto>(model);
+
+            return View(dto);
+        }
+
+        /// <summary>
+        /// Получение представления с отфильтрованым списком сущностей
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual ActionResult Read(PageRequestDto<TFilter> dto)
+        {
+            var query = UserRequestContext.Set<TModel>().AsQueryable();
+            var filtered = _filterHelper.Filter(query, dto.Filter);
+            var (items, total) = _pageDataService.ToPageView<TModel, TDto>(filtered, dto.PageData);
+            
+            var result = new PageResultDto<TFilter, TDto>
+            {
+                Filter = dto.Filter,
+                PageData = dto.PageData,
+                Items = items.ToList(),
+                Total = total
+            };
+            return View(result);
         }
 
         /// <summary>
@@ -45,7 +110,7 @@ namespace TestMotiv.Controllers.Base
             var model = Mapper.Map<TModel>(dto);
             UserRequestContext.Set<TModel>().Add(model);
             await UserRequestContext.SaveChangesAsync();
-            return Json(Mapper.Map<TDto>(model));
+            return RedirectToAction("Read");
         }
 
         /// <summary>

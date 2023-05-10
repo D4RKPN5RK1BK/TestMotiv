@@ -21,7 +21,7 @@ namespace TestMotiv
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
             
-            bundles.Add(new ScriptBundle("~/bundles/app.js").Include("~/Scripts/app."));
+            bundles.Add(new ScriptBundle("~/bundles/app.js").Include("~/Scripts/app.*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",

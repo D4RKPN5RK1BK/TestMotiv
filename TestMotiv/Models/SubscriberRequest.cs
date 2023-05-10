@@ -1,6 +1,6 @@
 ﻿using TestMotiv.Abstractions;
 
-namespace TestMotiv.Models.Domain
+namespace TestMotiv.Models
 {
     public class SubscriberRequest : IHasId
     {

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using TestMotiv.Models;
 using TestMotiv.Models.Domain;
 
 namespace TestMotiv.Contexts

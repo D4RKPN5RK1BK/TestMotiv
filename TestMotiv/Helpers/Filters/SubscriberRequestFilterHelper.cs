@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using TestMotiv.Abstractions;
 using TestMotiv.DTO;
+using TestMotiv.Models;
 using TestMotiv.Models.Domain;
 
 namespace TestMotiv.Helpers.Filters

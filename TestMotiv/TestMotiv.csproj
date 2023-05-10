@@ -137,30 +137,31 @@
     <ItemGroup>
         <Compile Include="Abstractions\IFilterHelper.cs" />
         <Compile Include="Abstractions\IHasId.cs" />
+        <Compile Include="Abstractions\IHasName.cs" />
         <Compile Include="Abstractions\IPageDataService.cs" />
         <Compile Include="App_Start\BundleConfig.cs" />
         <Compile Include="App_Start\FilterConfig.cs" />
         <Compile Include="App_Start\RouteConfig.cs" />
         <Compile Include="App_Start\UnityConfig.cs" />
-        <Compile Include="Automapper\Profiles\PageRequestProfile.cs" />
+        <Compile Include="Automapper\Profiles\DictionaryElementProfile.cs" />
         <Compile Include="Automapper\Profiles\RequestReasonProfile.cs" />
         <Compile Include="Automapper\Profiles\SubscriberRequestProfile.cs" />
         <Compile Include="Contexts\UserRequestContext.cs" />
         <Compile Include="Controllers\Base\BaseDictionaryController.cs" />
-        <Compile Include="Controllers\Dictionary\RequestReasonController.cs" />
-        <Compile Include="Controllers\Dictionary\SubscriberRequestController.cs" />
+        <Compile Include="Controllers\Base\BaseNamedDictionaryController.cs" />
+        <Compile Include="Controllers\Dict\RequestReasonController.cs" />
+        <Compile Include="Controllers\Dict\SubscriberRequestController.cs" />
         <Compile Include="Global.asax.cs">
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>
+        <Compile Include="Helpers\Filters\RequestReasonFilterHelper.cs" />
         <Compile Include="Helpers\Filters\SubscriberRequestFilterHelper.cs" />
-        <Compile Include="Models\Domain\Base\BaseNamedDictModel.cs" />
-        <Compile Include="Models\Domain\City.cs" />
-        <Compile Include="Models\Domain\Country.cs" />
-        <Compile Include="Models\Domain\Region.cs" />
-        <Compile Include="Models\Domain\RequestReason.cs" />
-        <Compile Include="Models\Domain\SubscriberRequest.cs" />
-        <Compile Include="Models\PageRequest.cs" />
-        <Compile Include="Models\PageView.cs" />
+        <Compile Include="Models\Base\BaseNamedDictModel.cs" />
+        <Compile Include="Models\City.cs" />
+        <Compile Include="Models\Country.cs" />
+        <Compile Include="Models\Region.cs" />
+        <Compile Include="Models\RequestReason.cs" />
+        <Compile Include="Models\SubscriberRequest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Services\PageDataService.cs" />
     </ItemGroup>
@@ -188,14 +189,18 @@
         <Content Include="Scripts\jquery.validate.unobtrusive.js" />
         <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
         <Content Include="Scripts\modernizr-2.8.3.js" />
-        <Content Include="Views\RequestReason\Index.cshtml" />
+        <Content Include="Views\Country\Create.cshtml" />
+        <Content Include="Views\Country\Read.cshtml" />
+        <Content Include="Views\Country\Update.cshtml" />
+        <Content Include="Views\RequestReason\Create.cshtml" />
+        <Content Include="Views\RequestReason\Read.cshtml" />
+        <Content Include="Views\RequestReason\Update.cshtml" />
         <Content Include="Views\Shared\Components\CreateWindow.cshtml" />
-        <Content Include="Views\Shared\Components\ConfirmDeleteWindow.cshtml" />
         <Content Include="Views\Shared\Components\GeoInputs.cshtml" />
         <Content Include="Views\Shared\Components\Pagination.cshtml" />
         <Content Include="Views\Shared\Components\UpdateWindow.cshtml" />
-        <Content Include="Views\SubscriberRequest\Edit.cshtml" />
-        <Content Include="Views\_ViewImports.cshtml" />
+        <Content Include="Views\SubscriberRequest\Create.cshtml" />
+        <Content Include="Views\SubscriberRequest\Update.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TestMotiv.DTO;
 using TestMotiv.Models;
 
 namespace TestMotiv.Abstractions
@@ -10,8 +11,8 @@ namespace TestMotiv.Abstractions
         /// Создание страничной форрмы на основе запроса 
         /// </summary>
         /// <param name="query"></param>
-        /// <param name="pageRequest"></param>
+        /// <param name="pageData"></param>
         /// <returns></returns>
-        (IEnumerable<TRes> Items, int Total) ToPageView<TSource, TRes>(IQueryable<TSource> query, PageRequest pageRequest) where TSource : IHasId;
+        (IEnumerable<TRes> Items, int Total) ToPageView<TSource, TRes>(IQueryable<TSource> query, PageDataDto pageData) where TSource : IHasId;
     }
 }

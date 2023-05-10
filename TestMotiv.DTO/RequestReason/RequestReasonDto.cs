@@ -1,6 +1,6 @@
 ﻿namespace TestMotiv.DTO
 {
-    public class RequestReasonDto : BaseModelDto
+    public class RequestReasonDto : BaseDictDto
     {
         
     }

@@ -1,6 +1,7 @@
-﻿using TestMotiv.Models.Domain.Base;
+﻿using TestMotiv.Models.Domain;
+using TestMotiv.Models.Domain.Base;
 
-namespace TestMotiv.Models.Domain
+namespace TestMotiv.Models
 {
     public class City : BaseNamedDictModel
     {

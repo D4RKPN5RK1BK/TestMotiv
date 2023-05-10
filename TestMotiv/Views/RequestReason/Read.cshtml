@@ -1,0 +1,32 @@
+﻿@using TestMotiv.DTO
+
+@model List<RequestReasonDto>
+
+<h2>Причины обращений</h2>
+
+<div class="row">
+    <div class="col-sm-3">
+        @Html.ActionLink("Добавить", "Create", "RequestReason", null, new {@class = "btn btn-success btn-block"})
+    </div>
+    <div class="col-sm-9">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>@row.Id</td>
+                    <td>@row.Name</td>
+                    <td>@Html.ActionLink("Изменить", "Update", "RequestReason", null, new {@class = "btn btn-success btn-block"})</td>
+                    <td></td>
+                </tr>    
+            }
+        </table>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@using TestMotiv.DTO
+
+@model RequestReasonDto
+
+<h2>Создание причины обращения</h2>
+
+<form method="post">
+    @Html.HiddenFor(i => i.Id)
+    <div class="form-group">
+        @Html.LabelFor(i => i.Name)
+        @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Применить" class="btn btn-block btn-success">
+    </div>
+</form>

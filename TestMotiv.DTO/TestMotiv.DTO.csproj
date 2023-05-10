@@ -38,11 +38,18 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Base\BaseDictDto.cs" />
         <Compile Include="Base\BaseFilterDto.cs" />
         <Compile Include="Base\BaseModelDto.cs" />
+        <Compile Include="City\CityDto.cs" />
+        <Compile Include="Common\DictionaryElement.cs" />
         <Compile Include="Common\PageRequestDto.cs" />
+        <Compile Include="Common\PageDataDto.cs" />
+        <Compile Include="Common\PageResultDto.cs" />
         <Compile Include="Common\PaginationDto.cs" />
+        <Compile Include="Country\CountryDto.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Region\RegionDto.cs" />
         <Compile Include="RequestReason\RequestReasonDto.cs" />
         <Compile Include="RequestReason\RequestReasonFilterDto.cs" />
         <Compile Include="SubscriberRequest\SubscriberRequestDto.cs" />
