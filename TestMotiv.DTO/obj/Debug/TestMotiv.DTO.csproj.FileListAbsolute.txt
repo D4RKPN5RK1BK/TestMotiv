@@ -1,6 +1,0 @@
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\bin\Debug\TestMotiv.DTO.dll
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\bin\Debug\TestMotiv.DTO.pdb
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\obj\Debug\TestMotiv.DTO.csproj.AssemblyReference.cache
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\obj\Debug\TestMotiv.DTO.csproj.CoreCompileInputs.cache
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\obj\Debug\TestMotiv.DTO.dll
-C:\Users\D4RK\RiderProjects\TestMotiv\TestMotiv.DTO\obj\Debug\TestMotiv.DTO.pdb
