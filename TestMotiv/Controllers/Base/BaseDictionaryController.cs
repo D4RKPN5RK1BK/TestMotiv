@@ -16,7 +16,7 @@ namespace TestMotiv.Controllers.Base
     /// <typeparam name="TFilter">Фильтр для получения отчета</typeparam>
     public abstract class BaseDictionaryController<TModel, TDto, TFilter> : Controller 
         where TModel : class, IHasId 
-        where TFilter : BaseFilterDto
+        where TFilter : BaseFilterDto, new()
         where TDto : new()
     {
         protected readonly UserRequestContext UserRequestContext;
@@ -43,7 +43,7 @@ namespace TestMotiv.Controllers.Base
         public virtual ActionResult Create()
         {
             var dto = new TDto();
-            return View(dto);
+            return View("Edit", dto);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace TestMotiv.Controllers.Base
             var model = UserRequestContext.Set<TModel>().Find(id);
             var dto = Mapper.Map<TDto>(model);
 
-            return View(dto);
+            return View("Edit", dto);
         }
 
         /// <summary>
@@ -69,17 +69,24 @@ namespace TestMotiv.Controllers.Base
         [HttpGet]
         public virtual ActionResult Read(PageRequestDto<TFilter> dto)
         {
+            var pageData = dto.PageData ?? new PageDataDto
+            {
+                CurrentPage = 1,
+                PageSize = 10
+            };
+            var filter = dto.Filter ?? new TFilter();
             var query = UserRequestContext.Set<TModel>().AsQueryable();
-            var filtered = _filterHelper.Filter(query, dto.Filter);
-            var (items, total) = _pageDataService.ToPageView<TModel, TDto>(filtered, dto.PageData);
+            query = _filterHelper.Filter(query, filter);
+            var (items, total) = _pageDataService.ToPageView<TModel, TDto>(query, pageData);
             
             var result = new PageResultDto<TFilter, TDto>
             {
-                Filter = dto.Filter,
-                PageData = dto.PageData,
+                Filter = filter,
+                PageData = pageData,
                 Items = items.ToList(),
                 Total = total
             };
+
             return View(result);
         }
 
@@ -126,8 +133,8 @@ namespace TestMotiv.Controllers.Base
 
             if (!set.Any(i => i.Id == model.Id))
                 return new HttpNotFoundResult();
-            
-            return Json(Mapper.Map<TDto>(model));
+
+            return RedirectToAction("Read");
         }
 
         /// <summary>

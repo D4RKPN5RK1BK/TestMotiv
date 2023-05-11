@@ -1,38 +1,47 @@
 ﻿@using TestMotiv.DTO
 @model PaginationDto
-
-<ul class="nav nav-pills">
-    @if (Model.HasPreviousPage)
-    {
-        <li role="presentation" class="active">
-            <a href="@Model.UrlParamsAsUrl"><<</a>
-        </li>
-        <li role="presentation" class="active">
-            <a href="@Model.UrlParamsAsUrl"><</a>
-        </li>    
-    }
-    
-    @for (int i = Model.CurrentPage > 4 ? Model.CurrentPage - 4 : 1; i < (Model.CurrentPage < Model.TotalPages - 4 ? Model.CurrentPage + 4 : Model.TotalPages); i++)
-    {
-        if (i == Model.CurrentPage)
+@{
+    var filterUri = Model.FilterDictAsUrl;
+    var pageSizeUri = $"{nameof(Model.PageData)}.{nameof(Model.PageData.PageSize)}={Model.PageData.PageSize}";
+    var currentPageUri = $"{nameof(Model.PageData)}.{nameof(Model.PageData.CurrentPage)}={{0}}";
+    var pageUri = $"?{string.Join("&", filterUri, pageSizeUri, currentPageUri)}";
+}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
         {
-            <li role="presentation" class="active">@i</li>
-        }
-        else
-        {
-            <li role="presentation">
-                <a href="@Model.UrlParamsAsUrl">@i</a>
+            <li>
+                <a href="@string.Format(pageUri, 1)">&laquo;</a>
             </li>
+            <li>
+                <a href="@string.Format(pageUri, Model.PageData.CurrentPage - 1)"><</a>
+            </li>    
         }
-    }
+        
+        @for (int i = Model.PageData.CurrentPage > 4 ? Model.PageData.CurrentPage - 4 : 1; i <= (Model.PageData.CurrentPage < Model.TotalPages - 4 ? Model.PageData.CurrentPage + 4 : Model.TotalPages); i++)
+        {
+            if (i == Model.PageData.CurrentPage)
+            {
+                <li class="active"><a href=""> @i <span class="sr-only">(current)</span></a></li>
+            }
+            else
+            {
+                <li>
+                    <a href="@string.Format(pageUri, i)">@i</a>
+                </li>
+            }
+        }
+    
+        @if (Model.HasNextPage)
+        { 
+            <li>
+                <a href="@string.Format(pageUri, Model.PageData.CurrentPage + 1)">></a>
+            </li>
+            <li>
+                <a href="@string.Format(pageUri, Model.TotalPages)">&raquo;</a>
+            </li>  
+        } 
+    </ul>
+</nav>
 
-    @if (Model.HasNextPage)
-    {
-        <li role="presentation">
-            <a href="@Model.UrlParamsAsUrl">></a>
-        </li>
-        <li role="presentation">
-            <a href="@Model.UrlParamsAsUrl">>></a>
-        </li>  
-    } 
-</ul>
+

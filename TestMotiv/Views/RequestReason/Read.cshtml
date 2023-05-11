@@ -1,7 +1,6 @@
 ﻿@using TestMotiv.DTO
 
-@model List<RequestReasonDto>
-
+@model PageResultDto<BaseFilterDto, RequestReasonDto>
 <h2>Причины обращений</h2>
 
 <div class="row">
@@ -9,7 +8,13 @@
         @Html.ActionLink("Добавить", "Create", "RequestReason", null, new {@class = "btn btn-success btn-block"})
     </div>
     <div class="col-sm-9">
-        <table>
+        @Html.Partial("Components/Pagination", new PaginationDto
+                    {
+                        Total = Model.Total,
+                        PageData = Model.PageData,
+                        FilterDict = new Dictionary<string, string>()
+                    })
+        <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
@@ -18,14 +23,15 @@
                 <th></th>
             </tr>
             </thead>
-            @foreach (var row in Model)
+            @foreach (var row in Model.Items)
             {
                 <tr>
                     <td>@row.Id</td>
                     <td>@row.Name</td>
-                    <td>@Html.ActionLink("Изменить", "Update", "RequestReason", null, new {@class = "btn btn-success btn-block"})</td>
-                    <td></td>
-                </tr>    
+                    <td>@Html.ActionLink("Изменить", "Update", "RequestReason", new { id = row.Id }, new { @class = "btn btn-primary btn-block" })</td>
+                    <td>
+                    <button name="delete-element" class="btn btn-danger btn-block">Удалить</button>
+                </tr>
             }
         </table>
     </div>

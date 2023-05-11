@@ -1,24 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TestMotiv.DTO
 {
     public class PaginationDto
     {
-        public int PageSize { get; set; }
-        
-        public int CurrentPage { get; set; }
+        public PageDataDto PageData { get; set; }
         
         public int Total { get; set; }
 
-        public Dictionary<string, string> UrlParams { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> FilterDict { get; set; } = new Dictionary<string, string>();
 
-        public string UrlParamsAsUrl => UrlParams.ToString();
+        public bool HasPreviousPage => PageData.CurrentPage > 1;
 
-        public bool HasPreviousPage => CurrentPage > 1;
+        public bool HasNextPage => PageData.CurrentPage < TotalPages;
 
-        public bool HasNextPage => CurrentPage < TotalPages;
-
-        public int TotalPages => (int)Math.Ceiling(Total / (double)PageSize);
+        public int TotalPages => (int)Math.Ceiling(Total / (double)PageData.PageSize);
+        
+        public string FilterDictAsUrl => string.Join("&", FilterDict.Select(i => $"Filter.{i.Key}={i.Value}"));
     }
 }

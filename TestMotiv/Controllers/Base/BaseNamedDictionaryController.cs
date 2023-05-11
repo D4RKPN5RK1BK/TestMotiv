@@ -10,7 +10,7 @@ namespace TestMotiv.Controllers.Base
 {
     public class BaseNamedDictionaryController<TModel, TDto, TFilter> : BaseDictionaryController<TModel, TDto, TFilter> 
         where TModel : class, IHasName 
-        where TFilter : BaseFilterDto
+        where TFilter : BaseFilterDto, new()
         where TDto : new()
     {
         public BaseNamedDictionaryController(Mapper mapper, UserRequestContext userRequestContext, IFilterHelper<TModel, TFilter> filterHelper, IPageDataService pageDataService) : base(mapper, userRequestContext, filterHelper, pageDataService)

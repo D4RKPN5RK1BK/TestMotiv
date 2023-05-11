@@ -192,15 +192,10 @@
         <Content Include="Views\Country\Create.cshtml" />
         <Content Include="Views\Country\Read.cshtml" />
         <Content Include="Views\Country\Update.cshtml" />
-        <Content Include="Views\RequestReason\Create.cshtml" />
+        <Content Include="Views\RequestReason\Edit.cshtml" />
         <Content Include="Views\RequestReason\Read.cshtml" />
-        <Content Include="Views\RequestReason\Update.cshtml" />
-        <Content Include="Views\Shared\Components\CreateWindow.cshtml" />
-        <Content Include="Views\Shared\Components\GeoInputs.cshtml" />
         <Content Include="Views\Shared\Components\Pagination.cshtml" />
-        <Content Include="Views\Shared\Components\UpdateWindow.cshtml" />
-        <Content Include="Views\SubscriberRequest\Create.cshtml" />
-        <Content Include="Views\SubscriberRequest\Update.cshtml" />
+        <Content Include="Views\SubscriberRequest\Edit.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>
