@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using AutoMapper;
 using TestMotiv.Abstractions;
-using TestMotiv.Contexts;
 using TestMotiv.Services;
 using Unity;
 using Unity.Injection;
@@ -26,7 +24,6 @@ namespace TestMotiv
 
             container.RegisterSingleton<Mapper>(new InjectionConstructor(new MapperConfiguration(conf => conf.AddMaps(typeof(MvcApplication)))));
             container.RegisterSingleton<IPageDataService, PageDataService>();
-            container.RegisterType<UserRequestContext>(new InjectionConstructor(WebConfigurationManager.ConnectionStrings["Default"].ConnectionString));
 
             foreach (var t in GetTypesByGenericInterface(typeof(IFilterHelper<,>)))
             {
@@ -34,7 +31,15 @@ namespace TestMotiv
                 var serviceType = interfaces.First(i => i.GetGenericTypeDefinition() == typeof(IFilterHelper<,>));
                 container.RegisterSingleton(serviceType, t);
             }
+
+            // container.RegisterSingleton(typeof(ISelectorHelper<,>), typeof(SelectorHelper<,>));
                 
+            foreach (var t in GetTypesByGenericInterface(typeof(ISelectorHelper<,>)))
+            {
+                var interfaces = t.GetInterfaces();
+                var serviceType = interfaces.First(i => i.GetGenericTypeDefinition() == typeof(ISelectorHelper<,>));
+                container.RegisterSingleton(serviceType, t);
+            }
             
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

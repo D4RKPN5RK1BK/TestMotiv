@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using TestMotiv.Abstractions;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
 namespace TestMotiv.Services
 {

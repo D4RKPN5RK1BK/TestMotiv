@@ -13,16 +13,16 @@ namespace TestMotiv.Helpers.Filters
             if (!string.IsNullOrEmpty(filter.Phone))
                 query = query.Where(i => i.Phone == filter.Phone);
 
-            if (filter.CityId > 0)
-                query = query.Where(i => i.CityId == filter.CityId);
+            if (!string.IsNullOrEmpty(filter.CityName))
+                query = query.Where(i => i.CityName.Contains(filter.CityName));
             
-            if (filter.CountryId > 0)
-                query = query.Where(i => i.City.Region.CountryId == filter.CountryId);
+            if (!string.IsNullOrEmpty(filter.CountryName))
+                query = query.Where(i => i.CountryName.Contains(filter.CountryName));
             
-            if (filter.RegionId > 0)
-                query = query.Where(i => i.City.RegionId == filter.RegionId);
+            if (!string.IsNullOrEmpty(filter.RegionName))
+                query = query.Where(i => i.RegionName.Contains(filter.RegionName));
             
-            if (filter.RequestReasonId > 0)
+            if (!string.IsNullOrEmpty(filter.Phone))
                 query = query.Where(i => i.RequestReasonId == filter.RequestReasonId);
 
             return query;

@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMotiv", "TestMotiv\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMotiv.DTO", "TestMotiv.DTO\TestMotiv.DTO.csproj", "{8C57206F-7C74-4EC8-82F6-EA8CCD0BDA9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMotiv.Core", "TestMotiv.Core\TestMotiv.Core.csproj", "{60D24B83-0819-42B4-84AB-6EB862DA7465}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{8C57206F-7C74-4EC8-82F6-EA8CCD0BDA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C57206F-7C74-4EC8-82F6-EA8CCD0BDA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C57206F-7C74-4EC8-82F6-EA8CCD0BDA9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60D24B83-0819-42B4-84AB-6EB862DA7465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60D24B83-0819-42B4-84AB-6EB862DA7465}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60D24B83-0819-42B4-84AB-6EB862DA7465}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60D24B83-0819-42B4-84AB-6EB862DA7465}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

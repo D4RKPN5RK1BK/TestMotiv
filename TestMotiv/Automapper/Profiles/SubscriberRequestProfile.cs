@@ -9,7 +9,12 @@ namespace TestMotiv.Automapper.Profiles
     {
         public SubscriberRequestProfile()
         {
-            CreateMap<SubscriberRequest, SubscriberRequestDto>();
+            CreateMap<SubscriberRequest, SubscriberRequestDto>()
+                .ForMember(dest => dest.RequestReasonName, opt =>
+                {
+                    opt.PreCondition(src => src.RequestReason != null);
+                    opt.MapFrom(src => src.RequestReason.Name);
+                });
             CreateMap<SubscriberRequestDto, SubscriberRequest>();
         }
     }

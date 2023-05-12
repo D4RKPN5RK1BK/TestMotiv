@@ -50,9 +50,6 @@ function ajaxPut(url, body, onComplete) {
 function ajaxDelete(url, onComplete) {
     fetch(url, {
         method: 'DELETE',
-        headers: {
-            'Content-type': 'application/json'
-        }
     })
         .then((response) => {
             return response.json()

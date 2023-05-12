@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
@@ -22,17 +23,20 @@ namespace TestMotiv.Controllers.Base
         protected readonly UserRequestContext UserRequestContext;
         protected readonly Mapper Mapper;
         private readonly IFilterHelper<TModel, TFilter> _filterHelper;
+        private readonly ISelectorHelper<TModel, TDto> _selectorHelper;
         private readonly IPageDataService _pageDataService;
 
         public BaseDictionaryController(Mapper mapper, 
-                                        UserRequestContext userRequestContext, 
-                                        IFilterHelper<TModel, TFilter> filterHelper, 
-                                        IPageDataService pageDataService)
+                                        UserRequestContext userRequestContext,
+                                        IPageDataService pageDataService,
+                                        IFilterHelper<TModel, TFilter> filterHelper = null, 
+                                        ISelectorHelper<TModel, TDto> selectorHelper = null)
         {
             Mapper = mapper;
             UserRequestContext = userRequestContext;
             _filterHelper = filterHelper;
             _pageDataService = pageDataService;
+            _selectorHelper = selectorHelper;
         }
 
         /// <summary>
@@ -76,7 +80,8 @@ namespace TestMotiv.Controllers.Base
             };
             var filter = dto.Filter ?? new TFilter();
             var query = UserRequestContext.Set<TModel>().AsQueryable();
-            query = _filterHelper.Filter(query, filter);
+            query = _filterHelper?.Filter(query, filter) ?? query;
+            query = _selectorHelper?.ApplySelectors(query) ?? query;
             var (items, total) = _pageDataService.ToPageView<TModel, TDto>(query, pageData);
             
             var result = new PageResultDto<TFilter, TDto>
@@ -126,13 +131,17 @@ namespace TestMotiv.Controllers.Base
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult Update(TDto dto)
+        public virtual async Task<ActionResult> Update(TDto dto)
         {
             var model = Mapper.Map<TModel>(dto);
             var set = UserRequestContext.Set<TModel>();
 
             if (!set.Any(i => i.Id == model.Id))
                 return new HttpNotFoundResult();
+
+            set.Attach(model);
+            UserRequestContext.Entry(model).State = EntityState.Modified;
+            await UserRequestContext.SaveChangesAsync();
 
             return RedirectToAction("Read");
         }

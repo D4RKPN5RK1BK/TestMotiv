@@ -13,7 +13,11 @@ namespace TestMotiv.Controllers.Base
         where TFilter : BaseFilterDto, new()
         where TDto : new()
     {
-        public BaseNamedDictionaryController(Mapper mapper, UserRequestContext userRequestContext, IFilterHelper<TModel, TFilter> filterHelper, IPageDataService pageDataService) : base(mapper, userRequestContext, filterHelper, pageDataService)
+        public BaseNamedDictionaryController(Mapper mapper, 
+                                             UserRequestContext userRequestContext,
+                                             IPageDataService pageDataService,
+                                             IFilterHelper<TModel, TFilter> filterHelper = null, 
+                                             ISelectorHelper<TModel, TDto> selectorHelper = null) : base(mapper, userRequestContext, pageDataService, filterHelper, selectorHelper)
         {
         }
 
@@ -24,16 +28,10 @@ namespace TestMotiv.Controllers.Base
         [HttpGet]
         public ActionResult List()
         {
-            var dtoList = new Dictionary<string, string>();
             var list = UserRequestContext.Set<TModel>().ToList()
-                .ToList();
+                .ConvertAll(i => new KeyValuePair<string, string>(i.Id.ToString(), i.Name));
 
-            foreach (var element  in list)
-            {
-                dtoList.Add(element.Id.ToString(), element.Name);
-            }
-
-            return Json(dtoList);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

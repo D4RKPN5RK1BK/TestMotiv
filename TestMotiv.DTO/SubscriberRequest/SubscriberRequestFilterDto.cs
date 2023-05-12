@@ -5,13 +5,13 @@ namespace TestMotiv.DTO
     public class SubscriberRequestFilterDto : BaseFilterDto
     {
         [DisplayName("Страна")]
-        public int CountryId { get; set; }
+        public string CountryName { get; set; }
         
         [DisplayName("Регион")]
-        public int RegionId { get; set; }
+        public string RegionName { get; set; }
         
         [DisplayName("Населенный пункт")]
-        public int CityId { get; set; }
+        public string CityName { get; set; }
         
         [DisplayName("Телефон")]
         public string Phone { get; set; }

@@ -4,7 +4,15 @@
     var filterUri = Model.FilterDictAsUrl;
     var pageSizeUri = $"{nameof(Model.PageData)}.{nameof(Model.PageData.PageSize)}={Model.PageData.PageSize}";
     var currentPageUri = $"{nameof(Model.PageData)}.{nameof(Model.PageData.CurrentPage)}={{0}}";
-    var pageUri = $"?{string.Join("&", filterUri, pageSizeUri, currentPageUri)}";
+    var uriParts = new List<string>
+    {
+        filterUri,
+        pageSizeUri,
+        currentPageUri
+    }
+        .Where(i => !string.IsNullOrEmpty(i))
+        .ToArray();
+    var pageUri = $"?{string.Join("&", uriParts)}";
 }
 <nav aria-label="Page navigation">
     <ul class="pagination">
@@ -22,7 +30,7 @@
         {
             if (i == Model.PageData.CurrentPage)
             {
-                <li class="active"><a href=""> @i <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="@string.Format(pageUri, i)"> @i <span class="sr-only">(current)</span></a></li>
             }
             else
             {

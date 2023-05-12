@@ -1,41 +1,43 @@
-@using TestMotiv.DTO
+﻿@using TestMotiv.DTO
 
 @model SubscriberRequestDto
 
-<div class="col-sm-6">
-    <form method="post">
-        <div class="form-group">
-            @Html.LabelFor(i => i.Phone)
-            @Html.TextBoxFor(i => i.Phone)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(i => i.RequestReasonId)
-            @Html.DropDownListFor(i => i.RequestReasonId, ViewBag.RequestReasons as SelectList)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(i => i.CountryId)
-            @Html.DropDownListFor(i => i.CountryId, ViewBag.Countries as SelectList)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(i => i.RegionId)
-            @Html.DropDownListFor(i => i.RegionId, ViewBag.Regions as SelectList)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(i => i.CityId)
-            @Html.DropDownListFor(i => i.CityId, ViewBag.Cities as SelectList)
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Применить" class="btn btn-block btn-success">
-        </div>
-    </form>
-</div>
+<h2>Редактирование обращения</h2>
+
+<form method="post">
+    <div class="form-group">
+        @Html.LabelFor(i => i.Phone)
+        @Html.TextBoxFor(i => i.Phone, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.RequestReasonId)
+        @Html.DropDownListFor(i => i.RequestReasonId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.CountryName)
+        @Html.TextBoxFor(i => i.CountryName, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.RegionName)
+        @Html.TextBoxFor(i => i.RegionName, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.CityName)
+        @Html.TextBoxFor(i => i.CityName, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Применить" class="btn btn-block btn-success">
+    </div>
+</form>
 
 @section scripts
 {
     <script>
     $(() => {
-        setDropDownValue('#@nameof(SubscriberRequestDto.RequestReasonId)', @Url.Action("List", "RequestReason"))
-       $() 
+        const selector = '#@nameof(SubscriberRequestDto.RequestReasonId)';
+        const url = '@Url.Action("List", "RequestReason")';
+        const value = '@Model.RequestReasonId';
+        setDropDownValue(selector, url, value);
     });
     </script>
 }

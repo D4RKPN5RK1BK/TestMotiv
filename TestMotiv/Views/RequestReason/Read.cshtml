@@ -9,11 +9,11 @@
     </div>
     <div class="col-sm-9">
         @Html.Partial("Components/Pagination", new PaginationDto
-                    {
-                        Total = Model.Total,
-                        PageData = Model.PageData,
-                        FilterDict = new Dictionary<string, string>()
-                    })
+        {
+            Total = Model.Total,
+            PageData = Model.PageData,
+            FilterDict = new Dictionary<string, string>()
+        })
         <table class="table">
             <thead>
             <tr>
@@ -30,9 +30,24 @@
                     <td>@row.Name</td>
                     <td>@Html.ActionLink("Изменить", "Update", "RequestReason", new { id = row.Id }, new { @class = "btn btn-primary btn-block" })</td>
                     <td>
-                    <button name="delete-element" class="btn btn-danger btn-block">Удалить</button>
+                    <button type="button" data-action="delete" value="@row.Id" class="btn btn-danger btn-block">Удалить</button>
                 </tr>
             }
         </table>
     </div>
 </div>
+
+@section scripts
+{
+    <script >
+        $(() => {
+            const deleteButtonSelector = 'button[data-action="delete"]';
+            const deleteUrl = '@Url.Action("Delete")';
+            setClickHandler(deleteButtonSelector, (e) => {
+                ajaxDelete(`${deleteUrl}/${$(e).val()}`, () => {
+                   location.reload(); 
+                });
+            });
+        })
+    </script>
+}
