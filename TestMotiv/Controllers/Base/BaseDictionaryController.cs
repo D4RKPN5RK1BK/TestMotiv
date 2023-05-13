@@ -20,20 +20,20 @@ namespace TestMotiv.Controllers.Base
         where TFilter : BaseFilterDto, new()
         where TDto : new()
     {
-        protected readonly UserRequestContext UserRequestContext;
+        protected readonly SubscriberRequestContext SubscriberRequestContext;
         protected readonly Mapper Mapper;
         private readonly IFilterHelper<TModel, TFilter> _filterHelper;
         private readonly ISelectorHelper<TModel, TDto> _selectorHelper;
         private readonly IPageDataService _pageDataService;
 
         public BaseDictionaryController(Mapper mapper, 
-                                        UserRequestContext userRequestContext,
+                                        SubscriberRequestContext subscriberRequestContext,
                                         IPageDataService pageDataService,
                                         IFilterHelper<TModel, TFilter> filterHelper = null, 
                                         ISelectorHelper<TModel, TDto> selectorHelper = null)
         {
             Mapper = mapper;
-            UserRequestContext = userRequestContext;
+            SubscriberRequestContext = subscriberRequestContext;
             _filterHelper = filterHelper;
             _pageDataService = pageDataService;
             _selectorHelper = selectorHelper;
@@ -60,7 +60,7 @@ namespace TestMotiv.Controllers.Base
         {
             if (id <= 0) return new HttpNotFoundResult();
 
-            var model = UserRequestContext.Set<TModel>().Find(id);
+            var model = SubscriberRequestContext.Set<TModel>().Find(id);
             var dto = Mapper.Map<TDto>(model);
 
             return View("Edit", dto);
@@ -79,7 +79,7 @@ namespace TestMotiv.Controllers.Base
                 PageSize = 10
             };
             var filter = dto.Filter ?? new TFilter();
-            var query = UserRequestContext.Set<TModel>().AsQueryable();
+            var query = SubscriberRequestContext.Set<TModel>().AsQueryable();
             query = _filterHelper?.Filter(query, filter) ?? query;
             query = _selectorHelper?.ApplySelectors(query) ?? query;
             var (items, total) = _pageDataService.ToPageView<TModel, TDto>(query, pageData);
@@ -103,7 +103,7 @@ namespace TestMotiv.Controllers.Base
         [HttpGet]
         public virtual ActionResult Get(int id)
         {
-            var model = UserRequestContext.Set<TModel>().Find(id);
+            var model = SubscriberRequestContext.Set<TModel>().Find(id);
 
             if (model == null)
                 return new HttpNotFoundResult();
@@ -120,8 +120,8 @@ namespace TestMotiv.Controllers.Base
         public virtual async Task<ActionResult> Create(TDto dto)
         {
             var model = Mapper.Map<TModel>(dto);
-            UserRequestContext.Set<TModel>().Add(model);
-            await UserRequestContext.SaveChangesAsync();
+            SubscriberRequestContext.Set<TModel>().Add(model);
+            var res = await SubscriberRequestContext.SaveChangesAsync();
             return RedirectToAction("Read");
         }
 
@@ -134,14 +134,14 @@ namespace TestMotiv.Controllers.Base
         public virtual async Task<ActionResult> Update(TDto dto)
         {
             var model = Mapper.Map<TModel>(dto);
-            var set = UserRequestContext.Set<TModel>();
+            var set = SubscriberRequestContext.Set<TModel>();
 
             if (!set.Any(i => i.Id == model.Id))
                 return new HttpNotFoundResult();
 
             set.Attach(model);
-            UserRequestContext.Entry(model).State = EntityState.Modified;
-            await UserRequestContext.SaveChangesAsync();
+            SubscriberRequestContext.Entry(model).State = EntityState.Modified;
+            await SubscriberRequestContext.SaveChangesAsync();
 
             return RedirectToAction("Read");
         }
@@ -151,17 +151,17 @@ namespace TestMotiv.Controllers.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpPost]
         public virtual async Task<ActionResult> Delete(int id)
         {
-            var set = UserRequestContext.Set<TModel>();
+            var set = SubscriberRequestContext.Set<TModel>();
             var model = set.Find(id);
 
             if (model == null)
                 return Json(false);
 
             set.Remove(model);
-            await UserRequestContext.SaveChangesAsync();
+            await SubscriberRequestContext.SaveChangesAsync();
             return Json(true);
         }
     }

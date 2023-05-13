@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using TestMotiv.Abstractions;
 
 namespace TestMotiv.Models
 {
-    public class SubscriberRequest : IHasId
+    public class SubscriberRequest : IAudiable, IHasId
     {
-        [Key]
         public int Id { get; set; }
         
         public string Phone { get; set; }
@@ -16,8 +15,12 @@ namespace TestMotiv.Models
         
         public string CountryName { get; set; }
         
-        public RequestReason RequestReason { get; set; }
+        public Department Department { get; set; }
         
-        public int RequestReasonId { get; set; }
+        public string RequestReason { get; set; }
+        
+        public int DepartmentId { get; set; }
+        
+        public DateTime Created { get; set; }
     }
 }

@@ -14,10 +14,10 @@ namespace TestMotiv.Controllers.Base
         where TDto : new()
     {
         public BaseNamedDictionaryController(Mapper mapper, 
-                                             UserRequestContext userRequestContext,
+                                             SubscriberRequestContext subscriberRequestContext,
                                              IPageDataService pageDataService,
                                              IFilterHelper<TModel, TFilter> filterHelper = null, 
-                                             ISelectorHelper<TModel, TDto> selectorHelper = null) : base(mapper, userRequestContext, pageDataService, filterHelper, selectorHelper)
+                                             ISelectorHelper<TModel, TDto> selectorHelper = null) : base(mapper, subscriberRequestContext, pageDataService, filterHelper, selectorHelper)
         {
         }
 
@@ -28,7 +28,7 @@ namespace TestMotiv.Controllers.Base
         [HttpGet]
         public ActionResult List()
         {
-            var list = UserRequestContext.Set<TModel>().ToList()
+            var list = SubscriberRequestContext.Set<TModel>().ToList()
                 .ConvertAll(i => new KeyValuePair<string, string>(i.Id.ToString(), i.Name));
 
             return Json(list, JsonRequestBehavior.AllowGet);

@@ -10,7 +10,7 @@ namespace TestMotiv.Helpers.Selectors
     {
         IQueryable<SubscriberRequest> ISelectorHelper<SubscriberRequest, SubscriberRequestDto>.ApplySelectors(IQueryable<SubscriberRequest> query)
         {
-            return query.Include(i => i.RequestReason);
+            return query.Include(i => i.Department);
         }
     }
 }

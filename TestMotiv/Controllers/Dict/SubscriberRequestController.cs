@@ -10,10 +10,10 @@ namespace TestMotiv.Controllers.Dict
     public class SubscriberRequestController : BaseDictionaryController<SubscriberRequest, SubscriberRequestDto, SubscriberRequestFilterDto>
     {
         public SubscriberRequestController(Mapper mapper, 
-                                           UserRequestContext userRequestContext, 
+                                           SubscriberRequestContext subscriberRequestContext, 
                                            IFilterHelper<SubscriberRequest, SubscriberRequestFilterDto> filterHelper, 
                                            ISelectorHelper<SubscriberRequest, SubscriberRequestDto> selectorHelper,
-                                           IPageDataService pageDataService) : base(mapper, userRequestContext, pageDataService, filterHelper, selectorHelper)
+                                           IPageDataService pageDataService) : base(mapper, subscriberRequestContext, pageDataService, filterHelper, selectorHelper)
         {
         }
     }

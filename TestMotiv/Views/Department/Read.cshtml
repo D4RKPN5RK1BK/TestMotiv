@@ -1,11 +1,11 @@
 ﻿@using TestMotiv.DTO
 
-@model PageResultDto<BaseFilterDto, RequestReasonDto>
+@model PageResultDto<BaseFilterDto, DepartmentDto>
 <h2>Причины обращений</h2>
 
 <div class="row">
     <div class="col-sm-3">
-        @Html.ActionLink("Добавить", "Create", "RequestReason", null, new {@class = "btn btn-success btn-block"})
+        @Html.ActionLink("Добавить", "Create", "Department", null, new {@class = "btn btn-success btn-block"})
     </div>
     <div class="col-sm-9">
         @Html.Partial("Components/Pagination", new PaginationDto
@@ -28,7 +28,7 @@
                 <tr>
                     <td>@row.Id</td>
                     <td>@row.Name</td>
-                    <td>@Html.ActionLink("Изменить", "Update", "RequestReason", new { id = row.Id }, new { @class = "btn btn-primary btn-block" })</td>
+                    <td>@Html.ActionLink("Изменить", "Update", "Department", new { id = row.Id }, new { @class = "btn btn-primary btn-block" })</td>
                     <td>
                     <button type="button" data-action="delete" value="@row.Id" class="btn btn-danger btn-block">Удалить</button>
                 </tr>
@@ -41,13 +41,7 @@
 {
     <script >
         $(() => {
-            const deleteButtonSelector = 'button[data-action="delete"]';
-            const deleteUrl = '@Url.Action("Delete")';
-            setClickHandler(deleteButtonSelector, (e) => {
-                ajaxDelete(`${deleteUrl}/${$(e).val()}`, () => {
-                   location.reload(); 
-                });
-            });
+            setDeleteButtonsHandler('@Url.Action("Delete")');
         })
     </script>
 }

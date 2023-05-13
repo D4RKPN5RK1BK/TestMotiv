@@ -12,20 +12,23 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.RegionName)
-                @Html.TextBoxFor(i => i.Filter.CountryName, new {@class = "form-control"})
+                @Html.TextBoxFor(i => i.Filter.RegionName, new {@class = "form-control"})
             </div>
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.CityName)
-                @Html.TextBoxFor(i => i.Filter.CountryName, new {@class = "form-control"})
+                @Html.TextBoxFor(i => i.Filter.CityName, new {@class = "form-control"})
             </div>
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.Phone)
-                @Html.TextBoxFor(i => i.Filter.CountryName, new {@class = "form-control"})
+                @Html.TextBoxFor(i => i.Filter.Phone, new {@class = "form-control"})
             </div>
             <div class="form-group">
-                @Html.LabelFor(i => i.Filter.RequestReasonId)
-                @Html.HiddenFor(i => i.Filter.RequestReasonId)
-                @Html.DropDownListFor(i => i.Filter.RequestReasonId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
+                @Html.LabelFor(i => i.Filter.RequestReason)
+                @Html.TextBoxFor(i => i.Filter.RequestReason, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(i => i.Filter.DepartmentId)
+                @Html.DropDownListFor(i => i.Filter.DepartmentId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
             </div>
             <div class="form-group">
                 <input type="submit" value="Отфильтровать" class="form-control">
@@ -44,7 +47,8 @@
                     {nameof(Model.Filter.CountryName), Model?.Filter?.CountryName},
                     {nameof(Model.Filter.CityName), Model?.Filter?.CityName},
                     {nameof(Model.Filter.RegionName), Model?.Filter?.RegionName},
-                    {nameof(Model.Filter.RequestReasonId), Model?.Filter?.RequestReasonId.ToString()},
+                    {nameof(Model.Filter.RequestReason), Model?.Filter?.RequestReason},
+                    {nameof(Model.Filter.DepartmentId), Model?.Filter?.DepartmentId.ToString()},
                 }
             })
         <table class="table">
@@ -55,18 +59,22 @@
                 <th>Населенный пункт</th>
                 <th>Номер абонента</th>
                 <th>Причина обращения</th>
+                <th>Направление принявшее заявку</th>
+                <th>Дата и время создания</th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model?.Items ?? new List<SubscriberRequestDto>())
             {
                 <tr>
                     <td>@item.CountryName</td>
                     <td>@item.RegionName</td>
                     <td>@item.CityName</td>
                     <td>@item.Phone</td>
-                    <td>@item.RequestReasonName</td>
+                    <td>@item.RequestReason</td>
+                    <td>@item.DepartmentName</td>
+                    <td>@item.Created</td>
                     <td>
                          @Html.ActionLink("Изменить", "Update", "SubscriberRequest", new {id = item.Id}, new {@class = "btn btn-primary btn-block"})
                     </td>
@@ -83,18 +91,11 @@
 {
     <script >
         $(() => {
-            const requestReasonSelector = '#@($"{nameof(Model.Filter)}_{nameof(SubscriberRequestDto.RequestReasonId)}")';
-            const requestReasonUrl = '@Url.Action("List", "RequestReason")';
-            const requestReasonValue = '@Model.Filter.RequestReasonId';
-            setDropDownValue(requestReasonSelector, requestReasonUrl, requestReasonValue);
-            
-            const deleteButtonSelector = 'button[data-action="delete"]';
-            const deleteUrl = '@Url.Action("Delete")';
-            setClickHandler(deleteButtonSelector, (e) => {
-                ajaxDelete(`${deleteUrl}/${$(e).val()}`, () => {
-                   location.reload(); 
-                });
-            });
+            const prepartmentSelector = '#@($"{nameof(Model.Filter)}_{nameof(Model.Filter.DepartmentId)}")';
+            const prepartmentUrl = '@Url.Action("List", "Department")';
+            const prepartmentValue = '@Model.Filter.DepartmentId';
+            setDropDownValue(prepartmentSelector, prepartmentUrl, prepartmentValue, true);
+            setDeleteButtonsHandler('@Url.Action("Delete")');
         })
     </script>
 }

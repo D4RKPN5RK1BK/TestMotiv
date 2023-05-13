@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TestMotiv.Models.Domain.Base;
+using TestMotiv.Models.Base;
 
 namespace TestMotiv.Models
 {
-    public class RequestReason : BaseNamedDictModel
+    public class Department : BaseNamedDictModel
     {
         public ICollection<SubscriberRequest> SubscriberRequests { get; set; } = new List<SubscriberRequest>();
     }

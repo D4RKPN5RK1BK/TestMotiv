@@ -17,6 +17,9 @@ namespace TestMotiv.DTO
         public string Phone { get; set; }
         
         [DisplayName("Причина обращения")]
-        public int RequestReasonId { get; set; }
+        public string RequestReason { get; set; }
+
+        [DisplayName("Направление принявшее заявку")]
+        public int DepartmentId { get; set; }
     }
 }

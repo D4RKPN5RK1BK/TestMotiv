@@ -2,7 +2,7 @@
 
 namespace TestMotiv.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Contexts.UserRequestContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Contexts.SubscriberRequestContext>
     {
         public Configuration()
         {

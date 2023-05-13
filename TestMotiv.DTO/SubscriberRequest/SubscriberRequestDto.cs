@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestMotiv.DTO
 {
@@ -15,11 +17,18 @@ namespace TestMotiv.DTO
 
         [DisplayName("Город")]
         public string CityName { get; set; }
-
-        [DisplayName("Причина запроса")]
-        public string RequestReasonName { get; set; }
         
         [DisplayName("Причина запроса")]
-        public int RequestReasonId { get; set; }
+        public string RequestReason { get; set; }
+        
+        [Required]
+        [DisplayName("Направление принявшее заявку")]
+        public int DepartmentId { get; set; }
+
+        [DisplayName("Направление принявшее заявку")]
+        public string DepartmentName { get; set; }
+        
+        [DisplayName("Дата и время создания")]
+        public DateTime Created { get; set; }
     }
 }

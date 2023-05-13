@@ -2,7 +2,6 @@
 using TestMotiv.Abstractions;
 using TestMotiv.DTO;
 using TestMotiv.Models;
-using TestMotiv.Models.Domain;
 
 namespace TestMotiv.Helpers.Filters
 {
@@ -22,8 +21,11 @@ namespace TestMotiv.Helpers.Filters
             if (!string.IsNullOrEmpty(filter.RegionName))
                 query = query.Where(i => i.RegionName.Contains(filter.RegionName));
             
-            if (!string.IsNullOrEmpty(filter.Phone))
-                query = query.Where(i => i.RequestReasonId == filter.RequestReasonId);
+            if (!string.IsNullOrEmpty(filter.RequestReason))
+                query = query.Where(i => i.RegionName.Contains(filter.RequestReason));
+            
+            if (filter.DepartmentId > 0)
+                query = query.Where(i => i.DepartmentId == filter.DepartmentId);
 
             return query;
         }

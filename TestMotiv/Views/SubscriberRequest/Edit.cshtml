@@ -10,8 +10,8 @@
         @Html.TextBoxFor(i => i.Phone, new {@class = "form-control"})
     </div>
     <div class="form-group">
-        @Html.LabelFor(i => i.RequestReasonId)
-        @Html.DropDownListFor(i => i.RequestReasonId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
+        @Html.LabelFor(i => i.DepartmentId)
+        @Html.DropDownListFor(i => i.DepartmentId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
     </div>
     <div class="form-group">
         @Html.LabelFor(i => i.CountryName)
@@ -26,6 +26,10 @@
         @Html.TextBoxFor(i => i.CityName, new {@class = "form-control"})
     </div>
     <div class="form-group">
+        @Html.LabelFor(i => i.RequestReason)
+        @Html.TextAreaFor(i => i.RequestReason, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
         <input type="submit" value="Применить" class="btn btn-block btn-success">
     </div>
 </form>
@@ -34,9 +38,9 @@
 {
     <script>
     $(() => {
-        const selector = '#@nameof(SubscriberRequestDto.RequestReasonId)';
-        const url = '@Url.Action("List", "RequestReason")';
-        const value = '@Model.RequestReasonId';
+        const selector = '#@nameof(SubscriberRequestDto.DepartmentId)';
+        const url = '@Url.Action("List", "Department")';
+        const value = '@Model.DepartmentId';
         setDropDownValue(selector, url, value);
     });
     </script>
