@@ -12,6 +12,7 @@
     <div class="form-group">
         @Html.LabelFor(i => i.DepartmentId)
         @Html.DropDownListFor(i => i.DepartmentId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
+        @Html.ValidationMessageFor(i => i.DepartmentId)
     </div>
     <div class="form-group">
         @Html.LabelFor(i => i.CountryName)

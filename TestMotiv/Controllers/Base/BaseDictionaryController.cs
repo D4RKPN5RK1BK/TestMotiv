@@ -119,9 +119,12 @@ namespace TestMotiv.Controllers.Base
         [HttpPost]
         public virtual async Task<ActionResult> Create(TDto dto)
         {
+            if (!ModelState.IsValid) 
+                return View("Edit", dto);
+            
             var model = Mapper.Map<TModel>(dto);
             SubscriberRequestContext.Set<TModel>().Add(model);
-            var res = await SubscriberRequestContext.SaveChangesAsync();
+            await SubscriberRequestContext.SaveChangesAsync();
             return RedirectToAction("Read");
         }
 
@@ -133,6 +136,9 @@ namespace TestMotiv.Controllers.Base
         [HttpPost]
         public virtual async Task<ActionResult> Update(TDto dto)
         {
+            if (!ModelState.IsValid) 
+                return View("Edit", dto);
+
             var model = Mapper.Map<TModel>(dto);
             var set = SubscriberRequestContext.Set<TModel>();
 

@@ -21,9 +21,9 @@ namespace TestMotiv.DTO
         [DisplayName("Причина запроса")]
         public string RequestReason { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Не указано направление принявшее заявку")]
         [DisplayName("Направление принявшее заявку")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [DisplayName("Направление принявшее заявку")]
         public string DepartmentName { get; set; }
