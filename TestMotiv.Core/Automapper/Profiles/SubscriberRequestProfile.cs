@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using TestMotiv.Core.Models;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
-namespace TestMotiv.Automapper.Profiles
+namespace TestMotiv.Core.Automapper.Profiles
 {
     public class SubscriberRequestProfile : Profile
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using TestMotiv.DTO;
 
-namespace TestMotiv.Automapper.Profiles
+namespace TestMotiv.Core.Automapper.Profiles
 {
     public class DictionaryElementProfile : Profile
     {

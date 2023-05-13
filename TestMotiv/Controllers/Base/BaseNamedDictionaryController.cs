@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using TestMotiv.Abstractions;
-using TestMotiv.Contexts;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Contexts;
 using TestMotiv.DTO;
 
 namespace TestMotiv.Controllers.Base

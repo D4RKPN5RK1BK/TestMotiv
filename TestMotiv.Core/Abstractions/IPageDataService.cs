@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
-namespace TestMotiv.Abstractions
+namespace TestMotiv.Core.Abstractions
 {
     public interface IPageDataService
     {

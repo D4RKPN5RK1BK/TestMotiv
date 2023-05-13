@@ -1,10 +1,10 @@
 using System.Data.Entity;
 using System.Linq;
-using TestMotiv.Abstractions;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Models;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
-namespace TestMotiv.Helpers.Selectors
+namespace TestMotiv.Core.Helpers.Selectors
 {
     public class SubscriberRequestSelectorHelper : ISelectorHelper<SubscriberRequest, SubscriberRequestDto>
     {

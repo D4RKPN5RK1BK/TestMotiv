@@ -1,6 +1,6 @@
-﻿using TestMotiv.Abstractions;
+﻿using TestMotiv.Core.Abstractions;
 
-namespace TestMotiv.Models.Base
+namespace TestMotiv.Core.Models.Base
 {
     public class BaseNamedDictModel : IHasName
     {

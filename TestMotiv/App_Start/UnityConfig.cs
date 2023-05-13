@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using AutoMapper;
-using TestMotiv.Abstractions;
-using TestMotiv.Services;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Automapper;
+using TestMotiv.Core.Services;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
@@ -22,7 +24,7 @@ namespace TestMotiv
             
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterSingleton<Mapper>(new InjectionConstructor(new MapperConfiguration(conf => conf.AddMaps(typeof(MvcApplication)))));
+            container.RegisterSingleton<Mapper>(new InjectionConstructor(new MapperConfiguration(conf => conf.AddMaps(typeof(AutomapperMarker)))));
             container.RegisterSingleton<IPageDataService, PageDataService>();
 
             foreach (var t in GetTypesByGenericInterface(typeof(IFilterHelper<,>)))
@@ -32,8 +34,6 @@ namespace TestMotiv
                 container.RegisterSingleton(serviceType, t);
             }
 
-            // container.RegisterSingleton(typeof(ISelectorHelper<,>), typeof(SelectorHelper<,>));
-                
             foreach (var t in GetTypesByGenericInterface(typeof(ISelectorHelper<,>)))
             {
                 var interfaces = t.GetInterfaces();
@@ -51,7 +51,7 @@ namespace TestMotiv
         /// <returns></returns>
         private static IEnumerable<Type> GetTypesByGenericInterface(Type type)
         {
-           return System.Reflection.Assembly.GetExecutingAssembly()
+           return Assembly.GetAssembly(type)
                 .GetTypes()
                 .Where(item => item.GetInterfaces()
                     .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == type) && !item.IsAbstract && !item.IsInterface);

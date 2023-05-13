@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TestMotiv.Models.Base;
+using TestMotiv.Core.Models.Base;
 
-namespace TestMotiv.Models
+namespace TestMotiv.Core.Models
 {
     public class Department : BaseNamedDictModel
     {

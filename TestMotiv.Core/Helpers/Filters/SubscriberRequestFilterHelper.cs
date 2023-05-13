@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using TestMotiv.Abstractions;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Models;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
-namespace TestMotiv.Helpers.Filters
+namespace TestMotiv.Core.Helpers.Filters
 {
     public class SubscriberRequestFilterHelper : IFilterHelper<SubscriberRequest, SubscriberRequestFilterDto>
     {

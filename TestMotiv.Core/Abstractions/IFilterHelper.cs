@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace TestMotiv.Abstractions
+namespace TestMotiv.Core.Abstractions
 {
     public interface IFilterHelper<TModel, TFilter>
     {

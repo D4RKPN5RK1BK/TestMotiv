@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using TestMotiv.Abstractions;
+using TestMotiv.Core.Abstractions;
 using TestMotiv.DTO;
 
-namespace TestMotiv.Services
+namespace TestMotiv.Core.Services
 {
     public class PageDataService : IPageDataService
     {

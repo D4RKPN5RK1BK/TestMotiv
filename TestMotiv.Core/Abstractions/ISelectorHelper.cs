@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace TestMotiv.Abstractions
+namespace TestMotiv.Core.Abstractions
 {
     /// <summary>
     /// Установка селекторов при запросе к БД

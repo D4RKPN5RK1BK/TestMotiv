@@ -1,4 +1,4 @@
-﻿namespace TestMotiv.Abstractions
+﻿namespace TestMotiv.Core.Abstractions
 {
     public interface IHasId
     {

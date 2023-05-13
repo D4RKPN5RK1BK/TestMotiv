@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
-using TestMotiv.Models;
+using TestMotiv.Core.Models;
 
-namespace TestMotiv.Contexts
+namespace TestMotiv.Core.Contexts
 {
     public class SubscriberRequestInitializer : DropCreateDatabaseAlways<SubscriberRequestContext>
     {

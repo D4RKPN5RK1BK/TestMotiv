@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,15 +33,59 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+          <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+        </Reference>
+        <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+          <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+        </Reference>
+        <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+          <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.CSharp" />
         <Reference Include="System" />
+        <Reference Include="System.ComponentModel.DataAnnotations" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Abstractions\IAudiable.cs" />
+        <Compile Include="Abstractions\IFilterHelper.cs" />
+        <Compile Include="Abstractions\IHasId.cs" />
+        <Compile Include="Abstractions\IHasName.cs" />
+        <Compile Include="Abstractions\IPageDataService.cs" />
+        <Compile Include="Abstractions\ISelectorHelper.cs" />
+        <Compile Include="Automapper\AutomapperMarker.cs" />
+        <Compile Include="Automapper\Profiles\DepartmentProfile.cs" />
+        <Compile Include="Automapper\Profiles\DictionaryElementProfile.cs" />
+        <Compile Include="Automapper\Profiles\SubscriberRequestProfile.cs" />
+        <Compile Include="Contexts\SubscriberRequestContext.cs" />
+        <Compile Include="Contexts\SubscriberRequestInitializer.cs" />
+        <Compile Include="Helpers\Filters\SubscriberRequestFilterHelper.cs" />
+        <Compile Include="Helpers\Selectors\SubscriberRequestSelectorHelper.cs" />
+        <Compile Include="Migrations\Configuration.cs" />
+        <Compile Include="Models\Base\BaseNamedDictModel.cs" />
+        <Compile Include="Models\Department.cs" />
+        <Compile Include="Models\SubscriberRequest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\PageDataService.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\TestMotiv.DTO\TestMotiv.DTO.csproj">
+        <Project>{8c57206f-7c74-4ec8-82f6-ea8ccd0bda9a}</Project>
+        <Name>TestMotiv.DTO</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+      <PropertyGroup>
+        <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+      </PropertyGroup>
+      <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+      <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    </Target>
+    <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

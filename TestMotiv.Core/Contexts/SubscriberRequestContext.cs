@@ -2,10 +2,10 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using TestMotiv.Abstractions;
-using TestMotiv.Models;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Models;
 
-namespace TestMotiv.Contexts
+namespace TestMotiv.Core.Contexts
 {
     public class SubscriberRequestContext : DbContext
     {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using TestMotiv.Abstractions;
-using TestMotiv.Contexts;
 using TestMotiv.Controllers.Base;
+using TestMotiv.Core.Abstractions;
+using TestMotiv.Core.Contexts;
+using TestMotiv.Core.Models;
 using TestMotiv.DTO;
-using TestMotiv.Models;
 
 namespace TestMotiv.Controllers.Dict
 {

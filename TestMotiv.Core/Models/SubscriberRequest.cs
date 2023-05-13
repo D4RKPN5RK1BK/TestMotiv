@@ -1,7 +1,7 @@
 ﻿using System;
-using TestMotiv.Abstractions;
+using TestMotiv.Core.Abstractions;
 
-namespace TestMotiv.Models
+namespace TestMotiv.Core.Models
 {
     public class SubscriberRequest : IAudiable, IHasId
     {

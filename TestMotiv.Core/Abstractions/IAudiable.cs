@@ -1,6 +1,6 @@
 using System;
 
-namespace TestMotiv.Abstractions
+namespace TestMotiv.Core.Abstractions
 {
     public interface IAudiable
     {
