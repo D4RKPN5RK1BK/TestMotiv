@@ -4,7 +4,7 @@ using TestMotiv.Core.Models;
 
 namespace TestMotiv.Core.Contexts
 {
-    public class SubscriberRequestInitializer : DropCreateDatabaseAlways<SubscriberRequestContext>
+    public class SubscriberRequestInitializer : CreateDatabaseIfNotExists<SubscriberRequestContext>
     {
         protected override void Seed(SubscriberRequestContext context)
         {
