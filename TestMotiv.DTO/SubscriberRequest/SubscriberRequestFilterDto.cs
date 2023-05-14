@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace TestMotiv.DTO
 {
@@ -21,5 +22,11 @@ namespace TestMotiv.DTO
 
         [DisplayName("Направление принявшее заявку")]
         public int DepartmentId { get; set; }
+        
+        [DisplayName("Период создания")]
+        public DateTime? CreatedFrom { get; set; }
+        
+        [DisplayName("Период создания")]
+        public DateTime? CreatedTo { get; set; }
     }
 }

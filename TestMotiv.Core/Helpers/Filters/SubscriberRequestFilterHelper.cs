@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TestMotiv.Core.Abstractions;
 using TestMotiv.Core.Models;
 using TestMotiv.DTO;
@@ -9,8 +10,14 @@ namespace TestMotiv.Core.Helpers.Filters
     {
         public IQueryable<SubscriberRequest> Filter(IQueryable<SubscriberRequest> query, SubscriberRequestFilterDto filter)
         {
+            if (filter.CreatedFrom.HasValue && filter.CreatedFrom > DateTime.MinValue)
+                query = query.Where(i => i.Created > filter.CreatedFrom);
+            
+            if (filter.CreatedTo.HasValue && filter.CreatedFrom < DateTime.MaxValue)
+                query = query.Where(i => i.Created < filter.CreatedTo);
+            
             if (!string.IsNullOrEmpty(filter.Phone))
-                query = query.Where(i => i.Phone == filter.Phone);
+                query = query.Where(i => i.Phone.Contains(filter.Phone));
 
             if (!string.IsNullOrEmpty(filter.CityName))
                 query = query.Where(i => i.CityName.Contains(filter.CityName));

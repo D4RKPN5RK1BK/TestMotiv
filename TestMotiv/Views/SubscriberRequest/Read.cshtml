@@ -2,6 +2,10 @@
 
 @model PageResultDto<SubscriberRequestFilterDto, SubscriberRequestDto>
 
+@{
+    var createdFrom = Model.Filter.CreatedFrom?.ToString("yyyy-MM-dd");
+    var createdTo = Model.Filter.CreatedTo?.ToString("yyyy-MM-dd");
+}
 <h2>Обращения абонентов</h2>
 <div class="row">
     <div class="col-sm-3">
@@ -29,6 +33,17 @@
             <div class="form-group">
                 @Html.LabelFor(i => i.Filter.DepartmentId)
                 @Html.DropDownListFor(i => i.Filter.DepartmentId, new SelectList(new List<KeyValuePair<string, string>>()), new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(i => i.Filter.CreatedFrom)
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(i => i.Filter.CreatedFrom, new {type = "date", value = createdFrom, @class = "form-control"})
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(i => i.Filter.CreatedTo, new {type = "date", value = createdTo, @class = "form-control"})
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Отфильтровать" class="form-control">
